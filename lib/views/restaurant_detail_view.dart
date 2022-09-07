@@ -9,6 +9,8 @@ class RestaurantDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String restaurantPicture =
+        'https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}';
     return Hero(
       tag: restaurant.id,
       child: Material(
@@ -19,7 +21,7 @@ class RestaurantDetail extends StatelessWidget {
               Stack(
                 children: [
                   Image.network(
-                    restaurant.pictureId,
+                    restaurantPicture,
                     height: 250,
                     width: double.maxFinite,
                     fit: BoxFit.fitWidth,
