@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/model/restraurant_model.dart';
+import 'package:restaurant_app/model/restraurant_list_model.dart';
 import 'package:restaurant_app/views/menu_selection_view.dart';
 
 class MenuSelectionScreen extends StatelessWidget {

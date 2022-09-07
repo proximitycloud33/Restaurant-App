@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/model/restraurant_model.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app/model/restraurant_list_model.dart';
+import 'package:restaurant_app/provider/restaurant_list_provider.dart';
 import 'package:restaurant_app/shared/theme.dart';
 
 class RestaurantGrid extends StatelessWidget {
@@ -7,14 +9,9 @@ class RestaurantGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<String>(
-      future: DefaultAssetBundle.of(context)
-          .loadString('assets/local_restaurant.json'),
-      builder: (context, snapshot) {
-        final RestaurantList restaurantList =
-            parseRestaurantList(snapshot.data);
-        List<Restaurant> restaurants = restaurantList.restaurants;
-        if (snapshot.hasData) {
+    return Consumer<RestaurantListProvider>(
+      builder: (context, value, _) {
+        if (value.state == ResultState.hasData) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: GridView.builder(
@@ -24,9 +21,12 @@ class RestaurantGrid extends StatelessWidget {
                 mainAxisSpacing: 20.0,
                 mainAxisExtent: 205,
               ),
-              itemCount: restaurants.length,
+              itemCount: value.restaurantList.restaurants.length,
               itemBuilder: (context, index) {
-                final Restaurant restaurant = restaurants[index];
+                final Restaurant restaurant =
+                    value.restaurantList.restaurants[index];
+                final String restaurantPicture =
+                    'https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}';
                 return GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(
@@ -44,7 +44,7 @@ class RestaurantGrid extends StatelessWidget {
                       child: Column(
                         children: [
                           Image.network(
-                            restaurant.pictureId,
+                            restaurantPicture,
                             fit: BoxFit.cover,
                             height: 100,
                             width: double.maxFinite,
@@ -111,11 +111,11 @@ class RestaurantGrid extends StatelessWidget {
               },
             ),
           );
-        } else if (snapshot.connectionState == ConnectionState.waiting) {
+        } else if (value.state == ResultState.loading) {
           return const Center(child: CircularProgressIndicator.adaptive());
         } else {
-          return const Center(
-            child: Text('Restaurant not availible at the moment'),
+          return Center(
+            child: Text(value.message),
           );
         }
       },

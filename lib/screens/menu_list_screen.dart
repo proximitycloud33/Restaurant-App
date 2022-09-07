@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/model/menu_list_screen_argument.dart';
-import 'package:restaurant_app/views/menu_list_view.dart';
 
 class MenuListScreen extends StatelessWidget {
   static const String routeName = '/menuListScreen';
@@ -15,10 +14,10 @@ class MenuListScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(restaurantArgs.menuType),
       ),
-      body: MenuList(
-        restaurant: restaurantArgs.restaurant,
-        menuType: restaurantArgs.menuType,
-      ),
+      // body: MenuList(
+      //   restaurant: restaurantArgs.restaurant,
+      //   menuType: restaurantArgs.menuType,
+      // ),
     );
   }
 }

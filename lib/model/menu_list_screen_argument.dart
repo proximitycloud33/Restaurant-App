@@ -1,4 +1,4 @@
-import 'package:restaurant_app/model/restraurant_model.dart';
+import 'package:restaurant_app/model/restraurant_list_model.dart';
 
 class MenuListScreenArgument {
   final Restaurant restaurant;
