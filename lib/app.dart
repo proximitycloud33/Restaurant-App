@@ -6,6 +6,7 @@ import 'package:restaurant_app/screens/menu_selection_screen.dart';
 import 'package:restaurant_app/screens/restaurant_detail_screen.dart';
 import 'package:restaurant_app/screens/restaurant_home_screen.dart';
 import 'package:restaurant_app/screens/restaurant_review_screen.dart';
+import 'package:restaurant_app/screens/search_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -19,8 +20,8 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         colorSchemeSeed: const Color(0xFF1BB8B8),
       ),
-      // initialRoute: RestaurantHomeScreen.routeName,
-      initialRoute: RestaurantReviewScreen.routeName,
+      initialRoute: RestaurantHomeScreen.routeName,
+      // initialRoute: SearchScreen.routeName,
       routes: {
         RestaurantHomeScreen.routeName: (context) =>
             const RestaurantHomeScreen(),
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         RestaurantReviewScreen.routeName: (context) =>
             const RestaurantReviewScreen(),
         AddReviewScreen.routeName: (context) => const AddReviewScreen(),
+        SearchScreen.routeName: (context) => const SearchScreen(),
       },
     );
   }

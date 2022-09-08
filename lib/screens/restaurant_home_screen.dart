@@ -13,6 +13,15 @@ class RestaurantHomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Restaurant App'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            tooltip: 'Search',
+            onPressed: () {
+              Navigator.pushNamed(context, '/searchScreen');
+            },
+          ),
+        ],
       ),
       body: ChangeNotifierProvider<RestaurantListProvider>(
         create: (BuildContext context) =>
