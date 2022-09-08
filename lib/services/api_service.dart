@@ -1,25 +1,27 @@
-import 'dart:developer';
-
+import 'package:restaurant_app/model/restaurant_detail_model.dart';
 import 'package:restaurant_app/model/restraurant_list_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  late RestaurantList restaurantListResult;
-  static const String _baseUrl = 'https://restaurant-api.dicoding.dev/list';
-  final Uri _parsedUri = Uri.parse(_baseUrl);
+  final String _baseUrl = 'https://restaurant-api.dicoding.dev';
 
   Future<RestaurantList> getRestaurantListData() async {
-    try {
-      final response = await http.get(_parsedUri);
-      if (response.statusCode == 200) {
-        restaurantListResult = restaurantListFromJson(response.body);
-      } else {
-        throw Exception('failed to load data');
-      }
-    } catch (e) {
-      log(e.toString());
+    final Uri parsedUri = Uri.parse('$_baseUrl/list');
+    final response = await http.get(parsedUri);
+    if (response.statusCode == 200) {
+      return restaurantListFromJson(response.body);
+    } else {
+      throw Exception('failed to load restaurant data');
     }
+  }
 
-    return restaurantListResult;
+  Future<RestaurantDetail> getRestaurantDetailData(String id) async {
+    final Uri parsedUri = Uri.parse('$_baseUrl/detail/$id');
+    final response = await http.get(parsedUri);
+    if (response.statusCode == 200) {
+      return restaurantDetailFromJson(response.body);
+    } else {
+      throw Exception('failed to load data');
+    }
   }
 }

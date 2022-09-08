@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/model/restraurant_list_model.dart';
-import 'package:restaurant_app/provider/restaurant_list_provider.dart';
+import 'package:restaurant_app/provider/restaurant_provider.dart';
 import 'package:restaurant_app/shared/theme.dart';
 
-class RestaurantGrid extends StatelessWidget {
-  const RestaurantGrid({Key? key}) : super(key: key);
+class RestaurantGridView extends StatelessWidget {
+  const RestaurantGridView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<RestaurantListProvider>(
+    return Consumer<RestaurantProvider>(
       builder: (context, value, _) {
         if (value.state == ResultState.hasData) {
           return Padding(
@@ -29,11 +29,26 @@ class RestaurantGrid extends StatelessWidget {
                     'https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}';
                 return GestureDetector(
                   onTap: () {
+                    print(restaurant.id);
                     Navigator.pushNamed(
                       context,
                       '/restaurantDetailScreen',
-                      arguments: restaurant,
+                      arguments: restaurant.id,
                     );
+                    // Navigator.of(context).push(MaterialPageRoute(
+                    //   builder: (context) {
+                    //     return ChangeNotifierProvider(
+                    //       create: (context) =>
+                    //           RestaurantProvider.fetchRestaurantDetailData(
+                    //         restaurantId: restaurant.id,
+                    //         apiService: ApiService(),
+                    //       ),
+                    //       builder: (context, child) => RestaurantDetailScreen(
+                    //         restaurantId: restaurant.id,
+                    //       ),
+                    //     );
+                    //   },
+                    // ));
                   },
                   child: Hero(
                     tag: restaurant.id,

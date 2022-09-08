@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app/provider/restaurant_list_provider.dart';
+import 'package:restaurant_app/provider/restaurant_provider.dart';
 import 'package:restaurant_app/services/api_service.dart';
 import 'package:restaurant_app/views/restaurant_grid_view.dart';
 
@@ -23,11 +23,18 @@ class RestaurantHomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: ChangeNotifierProvider<RestaurantListProvider>(
+      body: ChangeNotifierProvider<RestaurantProvider>(
         create: (BuildContext context) =>
-            RestaurantListProvider(apiService: ApiService()),
-        child: const RestaurantGrid(),
+            RestaurantProvider.fetchRestaurantListData(
+          apiService: ApiService(),
+        ),
+        child: const RestaurantGridView(),
       ),
+      floatingActionButton: FloatingActionButton(onPressed: () async {
+        final test =
+            await ApiService().getRestaurantDetailData('fnfn8mytkpmkfw1e867');
+        print(test.restaurant.name);
+      }),
     );
   }
 }
