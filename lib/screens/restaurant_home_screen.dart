@@ -13,15 +13,6 @@ class RestaurantHomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Restaurant App'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            tooltip: 'Search',
-            onPressed: () {
-              Navigator.pushNamed(context, '/searchScreen');
-            },
-          ),
-        ],
       ),
       body: ChangeNotifierProvider<RestaurantProvider>(
         create: (BuildContext context) =>
@@ -30,11 +21,22 @@ class RestaurantHomeScreen extends StatelessWidget {
         ),
         child: const RestaurantGridView(),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () async {
-        final test =
-            await ApiService().getRestaurantDetailData('fnfn8mytkpmkfw1e867');
-        print(test.restaurant.name);
-      }),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.pushNamed(context, '/searchScreen');
+        },
+        label: Row(
+          children: [
+            Row(
+              children: const [
+                Icon(Icons.search_outlined),
+                SizedBox(width: 12),
+                Text('Search'),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

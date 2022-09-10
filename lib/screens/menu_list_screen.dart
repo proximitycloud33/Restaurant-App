@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_app/model/menu_list_screen_argument.dart';
+import 'package:restaurant_app/provider/restaurant_provider.dart';
+import 'package:restaurant_app/services/api_service.dart';
+import 'package:restaurant_app/views/menu_list_view.dart';
 
 class MenuListScreen extends StatelessWidget {
   static const String routeName = '/menuListScreen';
@@ -14,10 +18,14 @@ class MenuListScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(restaurantArgs.menuType),
       ),
-      // body: MenuList(
-      //   restaurant: restaurantArgs.restaurant,
-      //   menuType: restaurantArgs.menuType,
-      // ),
+      body: ChangeNotifierProvider<RestaurantProvider>(
+        create: (context) => RestaurantProvider.fetchRestaurantDetailData(
+            apiService: ApiService(),
+            restaurantId: restaurantArgs.restaurantId),
+        child: MenuListView(
+          menuType: restaurantArgs.menuType,
+        ),
+      ),
     );
   }
 }

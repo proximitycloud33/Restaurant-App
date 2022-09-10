@@ -25,4 +25,11 @@ class MyTheme {
       Theme.of(context).textTheme.bodyMedium?.copyWith(color: color);
   static TextStyle? bodySmall(Color color, BuildContext context) =>
       Theme.of(context).textTheme.bodySmall?.copyWith(color: color);
+
+  static TextStyle? labelLarge(Color color, BuildContext context) =>
+      Theme.of(context).textTheme.labelLarge?.copyWith(color: color);
+  static TextStyle? labelMedium(Color color, BuildContext context) =>
+      Theme.of(context).textTheme.labelMedium?.copyWith(color: color);
+  static TextStyle? labelSmall(Color color, BuildContext context) =>
+      Theme.of(context).textTheme.labelSmall?.copyWith(color: color);
 }

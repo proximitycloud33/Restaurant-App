@@ -57,34 +57,54 @@ class RestaurantDetailView extends StatelessWidget {
                         ),
                       ),
                     ),
+                    Row(
+                      children: [
+                        ...restaurantDetail.restaurant.categories
+                            .map((category) {
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: Text(
+                              category.name,
+                              style: MyTheme.labelSmall(
+                                MyTheme.colorsScheme(context).onSurface,
+                                context,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8, top: 10),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.location_on_outlined,
+                          ),
+                          const SizedBox(width: 5),
+                          Text(
+                            '${restaurantDetail.restaurant.address}, ${restaurantDetail.restaurant.city}',
+                            style: MyTheme.bodyMedium(
+                              MyTheme.colorsScheme(context).onSurface,
+                              context,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8, top: 5),
                       child: Row(
                         children: [
                           Icon(
-                            Icons.location_on_outlined,
-                            color:
-                                MyTheme.colorsScheme(context).onSurfaceVariant,
-                          ),
-                          const SizedBox(width: 5),
-                          Text(
-                            restaurantDetail.restaurant.city,
-                            style: MyTheme.bodyMedium(
-                              MyTheme.colorsScheme(context).onSurfaceVariant,
-                              context,
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Icon(
                             Icons.star_outline_outlined,
-                            color:
-                                MyTheme.colorsScheme(context).onSurfaceVariant,
+                            color: MyTheme.colorsScheme(context).onSurface,
                           ),
                           const SizedBox(width: 5),
                           Text(
                             restaurantDetail.restaurant.rating.toString(),
                             style: MyTheme.bodyMedium(
-                              MyTheme.colorsScheme(context).onSurfaceVariant,
+                              MyTheme.colorsScheme(context).onSurface,
                               context,
                             ),
                           ),
@@ -93,7 +113,7 @@ class RestaurantDetailView extends StatelessWidget {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsets.only(left: 8, top: 20, right: 8),
+                          const EdgeInsets.only(left: 8, top: 10, right: 8),
                       child: Text(
                         restaurantDetail.restaurant.description,
                         style: MyTheme.bodyMedium(

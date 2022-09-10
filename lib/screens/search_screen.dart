@@ -17,6 +17,7 @@ class _SearchScreenState extends State<SearchScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: TextField(
+            autofocus: true,
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
               hintText: 'Search',

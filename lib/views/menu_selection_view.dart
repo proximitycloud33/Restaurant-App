@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/model/menu_list_screen_argument.dart';
 import 'package:restaurant_app/shared/theme.dart';
 
 class MenuSelectionView extends StatelessWidget {
-  const MenuSelectionView({super.key});
+  final String restaurantId;
+  const MenuSelectionView({super.key, required this.restaurantId});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,14 @@ class MenuSelectionView extends StatelessWidget {
             ),
             child: GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/menuListScreen');
+                Navigator.pushNamed(
+                  context,
+                  '/menuListScreen',
+                  arguments: MenuListScreenArgument(
+                    menuType: 'Foods',
+                    restaurantId: restaurantId,
+                  ),
+                );
               },
               child: Card(
                 elevation: 2,
@@ -56,7 +65,14 @@ class MenuSelectionView extends StatelessWidget {
             ),
             child: GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/menuListScreen');
+                Navigator.pushNamed(
+                  context,
+                  '/menuListScreen',
+                  arguments: MenuListScreenArgument(
+                    menuType: 'Drinks',
+                    restaurantId: restaurantId,
+                  ),
+                );
               },
               child: Card(
                 elevation: 2,
