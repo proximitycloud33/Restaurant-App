@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/model/restaurant_customer_review_model.dart';
+import 'package:restaurant_app/services/api_service.dart';
 
 class AddReviewScreen extends StatefulWidget {
-  const AddReviewScreen({super.key});
+  final String restaurantId;
+  const AddReviewScreen({super.key, required this.restaurantId});
   static const String routeName = '/addReviewScreen';
 
   @override
@@ -93,7 +96,25 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
           ),
         ),
         floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {},
+          onPressed: () {
+            if (_nameController.text.isNotEmpty &&
+                _reviewController.text.isNotEmpty) {
+              final customerReview = CustomerReview(
+                id: widget.restaurantId,
+                name: _nameController.text.trimLeft(),
+                review: _reviewController.text.trimLeft(),
+              );
+              ApiService().addReview(customerReview.toJson());
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  content: const Text('Review Added'),
+                  duration: const Duration(seconds: 1),
+                ),
+              );
+              Navigator.pop(context);
+            }
+          },
           label: Row(
             children: [
               Row(

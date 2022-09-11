@@ -19,7 +19,7 @@ class RestaurantProvider extends ChangeNotifier {
   }
   RestaurantProvider.fetchRestaurantDetailData(
       this._apiService, this._restaurantId) {
-    _fetchRestaurantDetailData(_restaurantId);
+    fetchRestaurantDetailData(_restaurantId);
   }
   RestaurantProvider.fetchSearchRestaurantListData(
       this._apiService, this._query) {
@@ -59,7 +59,7 @@ class RestaurantProvider extends ChangeNotifier {
     }
   }
 
-  Future<dynamic> _fetchRestaurantDetailData(String id) async {
+  Future<dynamic> fetchRestaurantDetailData(String id) async {
     try {
       _state = ResultState.loading;
       notifyListeners();

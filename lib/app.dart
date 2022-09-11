@@ -41,7 +41,10 @@ class MyApp extends StatelessWidget {
               restaurantId:
                   ModalRoute.of(context)?.settings.arguments as String,
             ),
-        AddReviewScreen.routeName: (context) => const AddReviewScreen(),
+        AddReviewScreen.routeName: (context) => AddReviewScreen(
+              restaurantId:
+                  ModalRoute.of(context)?.settings.arguments as String,
+            ),
         RestaurantSearchScreen.routeName: (context) =>
             const RestaurantSearchScreen(),
       },

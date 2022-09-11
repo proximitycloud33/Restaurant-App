@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:restaurant_app/model/restaurant_detail_model.dart';
 import 'package:restaurant_app/model/restaurant_list_model.dart';
 import 'package:http/http.dart' as http;
@@ -23,7 +25,7 @@ class ApiService {
     if (response.statusCode == 200) {
       return restaurantDetailFromJson(response.body);
     } else {
-      throw Exception('failed to load data');
+      throw Exception('Failed to load data');
     }
   }
 
@@ -33,7 +35,19 @@ class ApiService {
     if (response.statusCode == 200) {
       return restaurantSearchFromJson(response.body);
     } else {
-      throw Exception('failed to load data');
+      throw Exception('Failed to load data');
+    }
+  }
+
+  void addReview(Map<String, dynamic> review) async {
+    final Uri parsedUrl = Uri.parse('$_baseUrl/review');
+    final Map<String, String> headers = {
+      'Content-Type': 'application/json; charset=utf-8',
+    };
+    final response =
+        await http.post(parsedUrl, headers: headers, body: jsonEncode(review));
+    if (response.statusCode != 201) {
+      throw Exception('Failed to add reviews');
     }
   }
 }
