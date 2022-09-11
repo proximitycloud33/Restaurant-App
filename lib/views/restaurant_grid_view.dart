@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app/model/restraurant_list_model.dart';
+import 'package:restaurant_app/model/restaurant_list_model.dart';
+import 'package:restaurant_app/model/restaurant_search_model.dart'
+    as search_model;
 import 'package:restaurant_app/provider/restaurant_provider.dart';
 import 'package:restaurant_app/shared/theme.dart';
 
 class RestaurantGridView extends StatelessWidget {
-  const RestaurantGridView({Key? key}) : super(key: key);
+  final bool searchMode;
+  const RestaurantGridView({Key? key, required this.searchMode})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Consumer<RestaurantProvider>(
       builder: (context, value, _) {
+        final int itemCountList = value.restaurantList?.restaurants.length ?? 0;
+        final int itemCountSearchedList =
+            value.restaurantSearch?.restaurants.length ?? 0;
+
+        final List<Restaurant>? restaurantList =
+            value.restaurantList?.restaurants;
+        final List<search_model.Restaurant>? restaurantSearchedList =
+            value.restaurantSearch?.restaurants;
+
         if (value.state == ResultState.hasData) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -21,37 +34,28 @@ class RestaurantGridView extends StatelessWidget {
                 mainAxisSpacing: 20.0,
                 mainAxisExtent: 205,
               ),
-              itemCount: value.restaurantList.restaurants.length,
+              itemCount: searchMode ? itemCountSearchedList : itemCountList,
               itemBuilder: (context, index) {
-                final Restaurant restaurant =
-                    value.restaurantList.restaurants[index];
+                List<dynamic> restaurant = [];
+                if (searchMode) {
+                  restaurant = [...?restaurantSearchedList];
+                } else {
+                  restaurant = [...?restaurantList];
+                }
+                final restaurantData = restaurant[index];
+
                 final String restaurantPicture =
-                    'https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}';
+                    'https://restaurant-api.dicoding.dev/images/medium/${restaurantData.pictureId}';
                 return GestureDetector(
                   onTap: () {
-                    print(restaurant.id);
                     Navigator.pushNamed(
                       context,
-                      '/restaurantDetailScreen',
-                      arguments: restaurant.id,
+                      '/restaurantDetailHomeScreen',
+                      arguments: restaurantData.id,
                     );
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //   builder: (context) {
-                    //     return ChangeNotifierProvider(
-                    //       create: (context) =>
-                    //           RestaurantProvider.fetchRestaurantDetailData(
-                    //         restaurantId: restaurant.id,
-                    //         apiService: ApiService(),
-                    //       ),
-                    //       builder: (context, child) => RestaurantDetailScreen(
-                    //         restaurantId: restaurant.id,
-                    //       ),
-                    //     );
-                    //   },
-                    // ));
                   },
                   child: Hero(
-                    tag: restaurant.id,
+                    tag: restaurantData.id,
                     child: Card(
                       color: MyTheme.colorsScheme(context).surface,
                       clipBehavior: Clip.antiAlias,
@@ -70,7 +74,7 @@ class RestaurantGridView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  restaurant.name,
+                                  restaurantData.name,
                                   maxLines: 1,
                                   style: MyTheme.bodyLarge(
                                     MyTheme.colorsScheme(context).onSurface,
@@ -87,7 +91,7 @@ class RestaurantGridView extends StatelessWidget {
                                     ),
                                     const SizedBox(width: 5),
                                     Text(
-                                      restaurant.city,
+                                      restaurantData.city,
                                       style: MyTheme.bodyMedium(
                                         MyTheme.colorsScheme(context)
                                             .onSurfaceVariant,
@@ -106,7 +110,7 @@ class RestaurantGridView extends StatelessWidget {
                                     ),
                                     const SizedBox(width: 5),
                                     Text(
-                                      restaurant.rating.toString(),
+                                      restaurantData.rating.toString(),
                                       style: MyTheme.bodyMedium(
                                         MyTheme.colorsScheme(context)
                                             .onSurfaceVariant,
@@ -128,9 +132,13 @@ class RestaurantGridView extends StatelessWidget {
           );
         } else if (value.state == ResultState.loading) {
           return const Center(child: CircularProgressIndicator.adaptive());
+        } else if (searchMode == true && restaurantSearchedList!.isEmpty) {
+          return const Center(
+            child: Text('Hasil Pencarian Tidak Ditemukan'),
+          );
         } else {
-          return Center(
-            child: Text(value.message),
+          return const Center(
+            child: Text('No Internet Connection'),
           );
         }
       },

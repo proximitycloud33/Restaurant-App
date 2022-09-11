@@ -20,8 +20,9 @@ class MenuListScreen extends StatelessWidget {
       ),
       body: ChangeNotifierProvider<RestaurantProvider>(
         create: (context) => RestaurantProvider.fetchRestaurantDetailData(
-            apiService: ApiService(),
-            restaurantId: restaurantArgs.restaurantId),
+          ApiService(),
+          restaurantArgs.restaurantId,
+        ),
         child: MenuListView(
           menuType: restaurantArgs.menuType,
         ),

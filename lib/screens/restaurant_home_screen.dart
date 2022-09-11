@@ -16,10 +16,10 @@ class RestaurantHomeScreen extends StatelessWidget {
       ),
       body: ChangeNotifierProvider<RestaurantProvider>(
         create: (BuildContext context) =>
-            RestaurantProvider.fetchRestaurantListData(
-          apiService: ApiService(),
+            RestaurantProvider.fetchRestaurantListData(ApiService()),
+        child: const RestaurantGridView(
+          searchMode: false,
         ),
-        child: const RestaurantGridView(),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
