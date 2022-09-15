@@ -1,9 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:restaurant_app/model/restaurant_detail_model.dart';
-import 'package:restaurant_app/model/restaurant_search_model.dart';
 import 'package:restaurant_app/model/restaurant_list_model.dart';
+import 'package:restaurant_app/model/restaurant_search_model.dart';
 import 'package:restaurant_app/services/api_service.dart';
 
 enum ResultState { loading, noData, hasData, error }

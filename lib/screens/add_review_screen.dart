@@ -44,6 +44,31 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Add Review'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.done),
+              tooltip: 'Done',
+              onPressed: () {
+                if (_nameController.text.isNotEmpty &&
+                    _reviewController.text.isNotEmpty) {
+                  final customerReview = CustomerReview(
+                    id: widget.restaurantId,
+                    name: _nameController.text.trimLeft(),
+                    review: _reviewController.text.trimLeft(),
+                  );
+                  ApiService().addReview(customerReview.toJson());
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      content: const Text('Review Added'),
+                      duration: const Duration(seconds: 1),
+                    ),
+                  );
+                  Navigator.pop(context);
+                }
+              },
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -93,38 +118,6 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                 ),
               ],
             ),
-          ),
-        ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            if (_nameController.text.isNotEmpty &&
-                _reviewController.text.isNotEmpty) {
-              final customerReview = CustomerReview(
-                id: widget.restaurantId,
-                name: _nameController.text.trimLeft(),
-                review: _reviewController.text.trimLeft(),
-              );
-              ApiService().addReview(customerReview.toJson());
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  content: const Text('Review Added'),
-                  duration: const Duration(seconds: 1),
-                ),
-              );
-              Navigator.pop(context);
-            }
-          },
-          label: Row(
-            children: [
-              Row(
-                children: const [
-                  Icon(Icons.done),
-                  SizedBox(width: 12),
-                  Text('Submit Review'),
-                ],
-              ),
-            ],
           ),
         ),
       ),

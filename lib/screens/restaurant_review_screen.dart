@@ -13,26 +13,25 @@ class RestaurantReviewScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Reviews'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            tooltip: 'Add',
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                '/addReviewScreen',
+                arguments: restaurantId,
+              ).then(
+                (value) =>
+                    Provider.of<RestaurantProvider>(context, listen: false)
+                        .fetchRestaurantDetailData(restaurantId),
+              );
+            },
+          ),
+        ],
       ),
       body: const RestaurantReviewListView(),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/addReviewScreen',
-            arguments: restaurantId,
-          ).then((value) =>
-              Provider.of<RestaurantProvider>(context, listen: false)
-                  .fetchRestaurantDetailData(restaurantId));
-        },
-        label: Row(
-          children: const [
-            Icon(Icons.edit_outlined),
-            SizedBox(width: 12),
-            Text('Add Review'),
-          ],
-        ),
-      ),
     );
   }
 }

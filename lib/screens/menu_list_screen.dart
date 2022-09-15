@@ -23,9 +23,7 @@ class MenuListScreen extends StatelessWidget {
           ApiService(),
           restaurantArgs.restaurantId,
         ),
-        child: MenuListView(
-          menuType: restaurantArgs.menuType,
-        ),
+        child: MenuListView(menuType: restaurantArgs.menuType),
       ),
     );
   }

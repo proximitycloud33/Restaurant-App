@@ -13,29 +13,30 @@ class RestaurantHomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Restaurant App'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search_outlined),
+            tooltip: 'Search',
+            onPressed: () {
+              Navigator.pushNamed(context, '/searchScreen');
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.favorite_border),
+            tooltip: 'Favorite',
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.settings_outlined),
+            tooltip: 'Settings',
+            onPressed: () {},
+          ),
+        ],
       ),
       body: ChangeNotifierProvider<RestaurantProvider>(
         create: (BuildContext context) =>
             RestaurantProvider.fetchRestaurantListData(ApiService()),
-        child: const RestaurantGridView(
-          searchMode: false,
-        ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.pushNamed(context, '/searchScreen');
-        },
-        label: Row(
-          children: [
-            Row(
-              children: const [
-                Icon(Icons.search_outlined),
-                SizedBox(width: 12),
-                Text('Search'),
-              ],
-            ),
-          ],
-        ),
+        child: const RestaurantGridView(searchMode: false),
       ),
     );
   }

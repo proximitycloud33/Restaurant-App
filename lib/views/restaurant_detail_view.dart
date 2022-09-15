@@ -32,17 +32,26 @@ class RestaurantDetailView extends StatelessWidget {
                         ),
                         Positioned(
                           left: 16,
-                          top: 36,
+                          top: 26,
                           child: CircleAvatar(
-                            backgroundColor: MyTheme.colorsScheme(context)
-                                .secondaryContainer,
-                            foregroundColor: MyTheme.colorsScheme(context)
-                                .onSecondaryContainer,
+                            backgroundColor:
+                                MyTheme.colorsScheme(context).primaryContainer,
                             child: IconButton(
                               splashColor: Colors.transparent,
+                              color: MyTheme.colorsScheme(context).onSurface,
                               onPressed: () => Navigator.pop(context),
                               icon: const Icon(Icons.arrow_back),
                             ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 26,
+                          right: 16,
+                          child: IconButton(
+                            splashColor: Colors.transparent,
+                            color: MyTheme.colorsScheme(context).primary,
+                            onPressed: () {},
+                            icon: const Icon(Icons.favorite),
                           ),
                         ),
                       ],
@@ -133,7 +142,22 @@ class RestaurantDetailView extends StatelessWidget {
           );
         } else {
           return Center(
-            child: Text(value.message),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.wifi_off_outlined,
+                  color: MyTheme.colorsScheme(context).onSurface,
+                ),
+                Text(
+                  'No Internet Connection',
+                  style: MyTheme.headlineSmall(
+                    MyTheme.colorsScheme(context).onSurface,
+                    context,
+                  ),
+                ),
+              ],
+            ),
           );
         }
       },

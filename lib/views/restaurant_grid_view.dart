@@ -132,13 +132,24 @@ class RestaurantGridView extends StatelessWidget {
           );
         } else if (value.state == ResultState.loading) {
           return const Center(child: CircularProgressIndicator.adaptive());
-        } else if (searchMode == true && restaurantSearchedList!.isEmpty) {
-          return const Center(
-            child: Text('Hasil Pencarian Tidak Ditemukan'),
-          );
         } else {
-          return const Center(
-            child: Text('No Internet Connection'),
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.wifi_off_outlined,
+                  color: MyTheme.colorsScheme(context).onSurface,
+                ),
+                Text(
+                  'No Internet Connection',
+                  style: MyTheme.headlineSmall(
+                    MyTheme.colorsScheme(context).onSurface,
+                    context,
+                  ),
+                ),
+              ],
+            ),
           );
         }
       },

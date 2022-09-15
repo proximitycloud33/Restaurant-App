@@ -10,8 +10,8 @@ import 'package:restaurant_app/widgets/bottom_navigation_bar.dart';
 class RestaurantDetailHomeScreen extends StatefulWidget {
   static const String routeName = '/restaurantDetailHomeScreen';
   final String restaurantId;
-  const RestaurantDetailHomeScreen({Key? key, required this.restaurantId})
-      : super(key: key);
+
+  const RestaurantDetailHomeScreen({super.key, required this.restaurantId});
 
   @override
   State<RestaurantDetailHomeScreen> createState() =>
@@ -31,17 +31,23 @@ class _RestaurantDetailHomeScreenState
   late final List<Widget> _listWidget = [
     ChangeNotifierProvider<RestaurantProvider>(
       create: (context) => RestaurantProvider.fetchRestaurantDetailData(
-          ApiService(), widget.restaurantId),
+        ApiService(),
+        widget.restaurantId,
+      ),
       child: const RestaurantDetailScreen(),
     ),
     ChangeNotifierProvider<RestaurantProvider>(
       create: (context) => RestaurantProvider.fetchRestaurantDetailData(
-          ApiService(), widget.restaurantId),
+        ApiService(),
+        widget.restaurantId,
+      ),
       child: MenuSelectionScreen(restaurantId: widget.restaurantId),
     ),
     ChangeNotifierProvider<RestaurantProvider>(
       create: (context) => RestaurantProvider.fetchRestaurantDetailData(
-          ApiService(), widget.restaurantId),
+        ApiService(),
+        widget.restaurantId,
+      ),
       child: RestaurantReviewScreen(restaurantId: widget.restaurantId),
     ),
   ];
