@@ -7,7 +7,7 @@ import 'package:restaurant_app/views/restaurant_grid_view.dart';
 
 class RestaurantSearchScreen extends StatefulWidget {
   const RestaurantSearchScreen({super.key});
-  static const String routeName = '/searchScreen';
+  static const String routeName = '/restaurantSearchScreen';
   @override
   State<RestaurantSearchScreen> createState() => _RestaurantSearchScreenState();
 }

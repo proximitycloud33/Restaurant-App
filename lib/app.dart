@@ -1,53 +1,71 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/screens/add_review_screen.dart';
-import 'package:restaurant_app/screens/menu_list_screen.dart';
-import 'package:restaurant_app/screens/menu_selection_screen.dart';
-import 'package:restaurant_app/screens/restaurant_detail_home_screen.dart';
-import 'package:restaurant_app/screens/restaurant_detail_screen.dart';
-import 'package:restaurant_app/screens/restaurant_home_screen.dart';
-import 'package:restaurant_app/screens/restaurant_review_screen.dart';
-import 'package:restaurant_app/screens/restaurant_search_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app/helper/preferences_helper.dart';
+import 'package:restaurant_app/provider/preferences_provider.dart';
+import 'package:restaurant_app/provider/restaurant_provider.dart';
+import 'package:restaurant_app/screens/screen.dart';
+import 'package:restaurant_app/services/api_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        brightness: Brightness.dark,
-        colorSchemeSeed: const Color(0xFF1BB8B8),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => PreferencesProvider(
+            PreferencesHelper(
+              SharedPreferences.getInstance(),
+            ),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) =>
+              RestaurantProvider.fetchRestaurantListData(ApiService()),
+        )
+      ],
+      child: Consumer<PreferencesProvider>(
+        builder: (context, value, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: value.themeData,
+            initialRoute: RestaurantHomeScreen.routeName,
+            routes: {
+              RestaurantHomeScreen.routeName: (context) =>
+                  const RestaurantHomeScreen(),
+              RestaurantDetailHomeScreen.routeName: (context) =>
+                  RestaurantDetailHomeScreen(
+                    restaurantId:
+                        ModalRoute.of(context)?.settings.arguments as String,
+                  ),
+              RestaurantDetailScreen.routeName: (context) =>
+                  const RestaurantDetailScreen(),
+              MenuSelectionScreen.routeName: (context) => MenuSelectionScreen(
+                    restaurantId:
+                        ModalRoute.of(context)?.settings.arguments as String,
+                  ),
+              MenuListScreen.routeName: (context) => const MenuListScreen(),
+              RestaurantReviewScreen.routeName: (context) =>
+                  RestaurantReviewScreen(
+                    restaurantId:
+                        ModalRoute.of(context)?.settings.arguments as String,
+                  ),
+              AddReviewScreen.routeName: (context) => AddReviewScreen(
+                    restaurantId:
+                        ModalRoute.of(context)?.settings.arguments as String,
+                  ),
+              RestaurantSearchScreen.routeName: (context) =>
+                  const RestaurantSearchScreen(),
+              RestaurantFavoriteScreen.routeName: (context) =>
+                  const RestaurantFavoriteScreen(),
+              RestaurantSettingScreen.routeName: (context) =>
+                  const RestaurantSettingScreen(),
+            },
+          );
+        },
       ),
-      initialRoute: RestaurantHomeScreen.routeName,
-      // initialRoute: RestaurantDetailScreen.routeName,
-      routes: {
-        RestaurantHomeScreen.routeName: (context) =>
-            const RestaurantHomeScreen(),
-        RestaurantDetailHomeScreen.routeName: (context) =>
-            RestaurantDetailHomeScreen(
-              restaurantId:
-                  ModalRoute.of(context)?.settings.arguments as String,
-            ),
-        RestaurantDetailScreen.routeName: (context) =>
-            const RestaurantDetailScreen(),
-        MenuSelectionScreen.routeName: (context) => MenuSelectionScreen(
-              restaurantId:
-                  ModalRoute.of(context)?.settings.arguments as String,
-            ),
-        MenuListScreen.routeName: (context) => const MenuListScreen(),
-        RestaurantReviewScreen.routeName: (context) => RestaurantReviewScreen(
-              restaurantId:
-                  ModalRoute.of(context)?.settings.arguments as String,
-            ),
-        AddReviewScreen.routeName: (context) => AddReviewScreen(
-              restaurantId:
-                  ModalRoute.of(context)?.settings.arguments as String,
-            ),
-        RestaurantSearchScreen.routeName: (context) =>
-            const RestaurantSearchScreen(),
-      },
     );
   }
 }

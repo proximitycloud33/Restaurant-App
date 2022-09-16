@@ -28,13 +28,13 @@ class RestaurantProvider extends ChangeNotifier {
   RestaurantList? _restaurantList;
   RestaurantDetail? _restaurantDetail;
   RestaurantSearch? _restaurantSearch;
-  late ResultState _state;
+  ResultState? _state;
   String _message = '';
 
   RestaurantList? get restaurantList => _restaurantList;
   RestaurantDetail? get restaurantDetail => _restaurantDetail;
   RestaurantSearch? get restaurantSearch => _restaurantSearch;
-  ResultState get state => _state;
+  ResultState? get state => _state;
   String get message => _message;
 
   Future<dynamic> _fetchRestaurantListData() async {

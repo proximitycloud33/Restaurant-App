@@ -51,7 +51,7 @@ class RestaurantDetailView extends StatelessWidget {
                             splashColor: Colors.transparent,
                             color: MyTheme.colorsScheme(context).primary,
                             onPressed: () {},
-                            icon: const Icon(Icons.favorite),
+                            icon: const Icon(Icons.favorite_border_outlined),
                           ),
                         ),
                       ],

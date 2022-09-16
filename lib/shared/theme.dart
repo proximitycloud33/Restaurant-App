@@ -33,3 +33,14 @@ class MyTheme {
   static TextStyle? labelSmall(Color color, BuildContext context) =>
       Theme.of(context).textTheme.labelSmall?.copyWith(color: color);
 }
+
+ThemeData darkTheme = ThemeData(
+  useMaterial3: true,
+  brightness: Brightness.dark,
+  colorSchemeSeed: const Color(0xFF1BB8B8),
+);
+ThemeData lightTheme = ThemeData(
+  useMaterial3: true,
+  brightness: Brightness.light,
+  colorSchemeSeed: const Color(0xFF1BB8B8),
+);
