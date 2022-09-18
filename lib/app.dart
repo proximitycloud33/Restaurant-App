@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/helper/preferences_helper.dart';
+import 'package:restaurant_app/model/restaurant_detail_model.dart';
 import 'package:restaurant_app/provider/preferences_provider.dart';
 import 'package:restaurant_app/provider/restaurant_provider.dart';
+import 'package:restaurant_app/provider/scheduling_provider.dart';
 import 'package:restaurant_app/screens/screen.dart';
 import 'package:restaurant_app/services/api_service.dart';
+import 'package:restaurant_app/shared/global_navigation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyApp extends StatelessWidget {
@@ -21,10 +24,11 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
+        ChangeNotifierProvider(create: (context) => SchedulingProvider()),
         ChangeNotifierProvider(
           create: (context) =>
               RestaurantProvider.fetchRestaurantListData(ApiService()),
-        )
+        ),
       ],
       child: Consumer<PreferencesProvider>(
         builder: (context, value, child) {
@@ -32,6 +36,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: value.themeData,
             initialRoute: RestaurantHomeScreen.routeName,
+            navigatorKey: navigatorKey,
             routes: {
               RestaurantHomeScreen.routeName: (context) =>
                   const RestaurantHomeScreen(),
@@ -41,7 +46,10 @@ class MyApp extends StatelessWidget {
                         ModalRoute.of(context)?.settings.arguments as String,
                   ),
               RestaurantDetailScreen.routeName: (context) =>
-                  const RestaurantDetailScreen(),
+                  RestaurantDetailScreen(
+                    detailData: ModalRoute.of(context)?.settings.arguments
+                        as RestaurantDetail,
+                  ),
               MenuSelectionScreen.routeName: (context) => MenuSelectionScreen(
                     restaurantId:
                         ModalRoute.of(context)?.settings.arguments as String,

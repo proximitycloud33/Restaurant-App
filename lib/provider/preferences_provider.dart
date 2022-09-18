@@ -6,7 +6,9 @@ class PreferencesProvider extends ChangeNotifier {
   PreferencesHelper preferenceHelper;
   bool _isDarkTheme = false;
 
-  PreferencesProvider(this.preferenceHelper);
+  PreferencesProvider(this.preferenceHelper) {
+    _getTheme();
+  }
   bool get isDarkTheme => _isDarkTheme;
   ThemeData get themeData => _isDarkTheme ? darkTheme : lightTheme;
 

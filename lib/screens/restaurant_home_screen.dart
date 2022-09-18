@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/services/notification_service.dart';
 import 'package:restaurant_app/views/restaurant_grid_view.dart';
 
 class RestaurantHomeScreen extends StatefulWidget {
@@ -10,6 +11,21 @@ class RestaurantHomeScreen extends StatefulWidget {
 }
 
 class _RestaurantHomeScreenState extends State<RestaurantHomeScreen> {
+  final _notificationService = NotificationService();
+  @override
+  void initState() {
+    super.initState();
+    // global navigation to Detail screen when user tap from notification
+    _notificationService
+        .configureSelectNotificationSubject('/restaurantDetailHomeScreen');
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    selectNotificationSubject.close();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,10 +50,7 @@ class _RestaurantHomeScreenState extends State<RestaurantHomeScreen> {
             icon: const Icon(Icons.settings_outlined),
             tooltip: 'Settings',
             onPressed: () {
-              Navigator.pushNamed(context, '/restaurantSettingScreen')
-                  .then((value) => setState(() {
-                        print('update');
-                      }));
+              Navigator.pushNamed(context, '/restaurantSettingScreen');
             },
           ),
         ],
