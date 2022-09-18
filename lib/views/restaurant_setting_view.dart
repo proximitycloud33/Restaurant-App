@@ -74,7 +74,7 @@ class RestaurantSettingView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Restaurant recommendation',
+                                  'Restaurant Recommendation',
                                   style: MyTheme.titleMedium(
                                     MyTheme.colorsScheme(context).onSurface,
                                     context,
@@ -93,7 +93,8 @@ class RestaurantSettingView extends StatelessWidget {
                             ),
                           ),
                           Switch.adaptive(
-                            value: schedulingValue.isScheduled,
+                            value: preferences
+                                .isRestaurantRecommendationSchedullingActive,
                             onChanged: (value) {
                               if (Platform.isIOS) {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -103,6 +104,10 @@ class RestaurantSettingView extends StatelessWidget {
                                 );
                               } else {
                                 schedulingValue.scheduledRecommendation(value);
+                                preferences
+                                    .enableRestaurantRecommendationSchedulling(
+                                  value,
+                                );
                               }
                             },
                           )

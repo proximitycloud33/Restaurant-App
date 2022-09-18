@@ -46,10 +46,7 @@ class MyApp extends StatelessWidget {
                         ModalRoute.of(context)?.settings.arguments as String,
                   ),
               RestaurantDetailScreen.routeName: (context) =>
-                  RestaurantDetailScreen(
-                    detailData: ModalRoute.of(context)?.settings.arguments
-                        as RestaurantDetail,
-                  ),
+                  const RestaurantDetailScreen(),
               MenuSelectionScreen.routeName: (context) => MenuSelectionScreen(
                     restaurantId:
                         ModalRoute.of(context)?.settings.arguments as String,
