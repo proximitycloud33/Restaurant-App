@@ -3,7 +3,6 @@ import 'package:restaurant_app/views/restaurant_detail_view.dart';
 
 class RestaurantDetailScreen extends StatelessWidget {
   static const String routeName = '/restaurantDetailScreen';
-
   const RestaurantDetailScreen({super.key});
 
   @override

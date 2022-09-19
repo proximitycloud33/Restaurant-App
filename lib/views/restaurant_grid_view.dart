@@ -5,13 +5,11 @@ import 'package:restaurant_app/model/restaurant_search_model.dart'
     as search_model;
 import 'package:restaurant_app/provider/restaurant_provider.dart';
 import 'package:restaurant_app/shared/theme.dart';
-
-import '../shared/result_state.dart';
+import 'package:restaurant_app/shared/result_state.dart';
 
 class RestaurantGridView extends StatelessWidget {
   final bool searchMode;
-  const RestaurantGridView({Key? key, required this.searchMode})
-      : super(key: key);
+  const RestaurantGridView({super.key, required this.searchMode});
 
   @override
   Widget build(BuildContext context) {

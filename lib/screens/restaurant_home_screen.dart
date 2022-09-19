@@ -3,8 +3,8 @@ import 'package:restaurant_app/helper/notification_helper.dart';
 import 'package:restaurant_app/views/restaurant_grid_view.dart';
 
 class RestaurantHomeScreen extends StatefulWidget {
-  const RestaurantHomeScreen({Key? key}) : super(key: key);
   static const String routeName = '/restaurantHomeScreen';
+  const RestaurantHomeScreen({super.key});
 
   @override
   State<RestaurantHomeScreen> createState() => _RestaurantHomeScreenState();
@@ -15,7 +15,7 @@ class _RestaurantHomeScreenState extends State<RestaurantHomeScreen> {
   @override
   void initState() {
     super.initState();
-    // global navigation to Detail screen when user tap from notification
+    // Global navigation to Detail Screen when user tap from notification
     _notificationService
         .configureSelectNotificationSubject('/restaurantDetailHomeScreen');
   }

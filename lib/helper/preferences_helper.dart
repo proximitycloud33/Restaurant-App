@@ -2,7 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesHelper {
   static const String darkThemeKey = 'DARK_THEME';
-  static const String restaurantRecommendationSchedullingKey =
+  static const String restaurantRecommendationSchedulingKey =
       'RESTAURANT_RECOMMENDATION';
   final Future<SharedPreferences> sharedPreferences;
   PreferencesHelper(this.sharedPreferences);
@@ -17,13 +17,13 @@ class PreferencesHelper {
     return preferences.getBool(darkThemeKey) ?? false;
   }
 
-  void setRestaurantRecommendationSchedulling(bool value) async {
+  void setRestaurantRecommendationScheduling(bool value) async {
     final preferences = await sharedPreferences;
-    preferences.setBool(restaurantRecommendationSchedullingKey, value);
+    preferences.setBool(restaurantRecommendationSchedulingKey, value);
   }
 
-  Future<bool> get isRestaurantRecommendationSchedullingActive async {
+  Future<bool> get isRestaurantRecommendationSchedulingActive async {
     final preferences = await sharedPreferences;
-    return preferences.getBool(restaurantRecommendationSchedullingKey) ?? false;
+    return preferences.getBool(restaurantRecommendationSchedulingKey) ?? false;
   }
 }

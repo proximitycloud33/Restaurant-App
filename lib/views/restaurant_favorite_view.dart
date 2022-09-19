@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'package:restaurant_app/provider/database_provider.dart';
 import 'package:restaurant_app/shared/result_state.dart';
 import 'package:restaurant_app/shared/theme.dart';
-
-import '../provider/database_provider.dart';
 
 class RestaurantFavoriteView extends StatelessWidget {
   const RestaurantFavoriteView({super.key});
@@ -99,7 +99,7 @@ class RestaurantFavoriteView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  Text('All your favourite restaurant, in one place.'),
+                  Text('All your favorite restaurant, in one place.'),
                   Text(
                       'Simply tap the heart icon in restaurant page you would like'),
                 ],

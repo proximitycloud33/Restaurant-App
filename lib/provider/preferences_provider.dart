@@ -5,15 +5,15 @@ import 'package:restaurant_app/shared/theme.dart';
 class PreferencesProvider extends ChangeNotifier {
   PreferencesHelper preferenceHelper;
   bool _isDarkTheme = false;
-  bool _isRestaurantRecommendationSchedullingActive = false;
+  bool _isRestaurantRecommendationSchedulingActive = false;
 
   PreferencesProvider(this.preferenceHelper) {
     _getTheme();
-    _getRestaurantRecommendationSchedulling();
+    _getRestaurantRecommendationScheduling();
   }
   bool get isDarkTheme => _isDarkTheme;
-  bool get isRestaurantRecommendationSchedullingActive =>
-      _isRestaurantRecommendationSchedullingActive;
+  bool get isRestaurantRecommendationSchedulingActive =>
+      _isRestaurantRecommendationSchedulingActive;
   ThemeData get themeData => _isDarkTheme ? darkTheme : lightTheme;
 
   void _getTheme() async {
@@ -21,9 +21,9 @@ class PreferencesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _getRestaurantRecommendationSchedulling() async {
-    _isRestaurantRecommendationSchedullingActive =
-        await preferenceHelper.isRestaurantRecommendationSchedullingActive;
+  void _getRestaurantRecommendationScheduling() async {
+    _isRestaurantRecommendationSchedulingActive =
+        await preferenceHelper.isRestaurantRecommendationSchedulingActive;
     notifyListeners();
   }
 
@@ -32,8 +32,8 @@ class PreferencesProvider extends ChangeNotifier {
     _getTheme();
   }
 
-  void enableRestaurantRecommendationSchedulling(bool value) async {
-    preferenceHelper.setRestaurantRecommendationSchedulling(value);
-    _getRestaurantRecommendationSchedulling();
+  void enableRestaurantRecommendationScheduling(bool value) async {
+    preferenceHelper.setRestaurantRecommendationScheduling(value);
+    _getRestaurantRecommendationScheduling();
   }
 }

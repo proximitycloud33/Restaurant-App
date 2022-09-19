@@ -14,7 +14,7 @@ import 'mock_data.dart';
 @GenerateMocks([http.Client])
 void main() {
   group('Fetch Restaurant data from API', () {
-    test('Return a Restaurant List Data if http call completes succesfully',
+    test('Return a Restaurant List Data if http call completes successfully',
         () async {
       final client = MockClient();
       final parsedUri = Uri.parse('https://restaurant-api.dicoding.dev/list');
@@ -27,7 +27,7 @@ void main() {
         isA<RestaurantList>(),
       );
     });
-    test('Return a Restaurant Detail Data if http call completes succesfully',
+    test('Return a Restaurant Detail Data if http call completes successfully',
         () async {
       final client = MockClient();
       String restaurantId = 'rqdv5juczeskfw1e867';
@@ -42,7 +42,8 @@ void main() {
         isA<RestaurantDetail>(),
       );
     });
-    test('Return a Restaurant List Data if search is found', () async {
+    test('Return a Restaurant List Data if http call completes successfully',
+        () async {
       final client = MockClient();
       String query = 'makan';
       final parsedUri =

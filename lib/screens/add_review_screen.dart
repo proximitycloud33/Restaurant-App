@@ -4,9 +4,9 @@ import 'package:restaurant_app/model/restaurant_customer_review_model.dart';
 import 'package:restaurant_app/services/api_service.dart';
 
 class AddReviewScreen extends StatefulWidget {
+  static const String routeName = '/addReviewScreen';
   final String restaurantId;
   const AddReviewScreen({super.key, required this.restaurantId});
-  static const String routeName = '/addReviewScreen';
 
   @override
   State<AddReviewScreen> createState() => _AddReviewScreenState();
@@ -15,16 +15,16 @@ class AddReviewScreen extends StatefulWidget {
 class _AddReviewScreenState extends State<AddReviewScreen> {
   late TextEditingController _nameController;
   late TextEditingController _reviewController;
-  late FocusNode _namefocusNode;
-  late FocusNode _reviewfocusNode;
+  late FocusNode _nameFocusNode;
+  late FocusNode _reviewFocusNode;
 
   @override
   void initState() {
     super.initState();
     _nameController = TextEditingController();
     _reviewController = TextEditingController();
-    _namefocusNode = FocusNode();
-    _reviewfocusNode = FocusNode();
+    _nameFocusNode = FocusNode();
+    _reviewFocusNode = FocusNode();
   }
 
   @override
@@ -32,8 +32,8 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
     super.dispose();
     _nameController.dispose();
     _reviewController.dispose();
-    _namefocusNode.dispose();
-    _reviewfocusNode.dispose();
+    _nameFocusNode.dispose();
+    _reviewFocusNode.dispose();
   }
 
   @override
@@ -81,11 +81,11 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
               children: [
                 TextField(
                   autofocus: true,
-                  focusNode: _namefocusNode,
+                  focusNode: _nameFocusNode,
                   controller: _nameController,
                   textInputAction: TextInputAction.next,
                   onEditingComplete: () {
-                    _reviewfocusNode.requestFocus();
+                    _reviewFocusNode.requestFocus();
                   },
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(
@@ -104,7 +104,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                 const SizedBox(height: 20),
                 TextField(
                   controller: _reviewController,
-                  focusNode: _reviewfocusNode,
+                  focusNode: _reviewFocusNode,
                   maxLines: null,
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(

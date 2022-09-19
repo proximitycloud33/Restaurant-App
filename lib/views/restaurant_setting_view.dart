@@ -94,18 +94,18 @@ class RestaurantSettingView extends StatelessWidget {
                           ),
                           Switch.adaptive(
                             value: preferences
-                                .isRestaurantRecommendationSchedullingActive,
+                                .isRestaurantRecommendationSchedulingActive,
                             onChanged: (value) {
                               if (Platform.isIOS) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                    content: Text('Not Availible on IOS'),
+                                    content: Text('Not Available on IOS'),
                                   ),
                                 );
                               } else {
                                 schedulingValue.scheduledRecommendation(value);
                                 preferences
-                                    .enableRestaurantRecommendationSchedulling(
+                                    .enableRestaurantRecommendationScheduling(
                                   value,
                                 );
                               }

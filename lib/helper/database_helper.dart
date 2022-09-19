@@ -1,5 +1,6 @@
-import 'package:restaurant_app/model/restaurant_favorite_model.dart';
 import 'package:sqflite/sqflite.dart';
+
+import 'package:restaurant_app/model/restaurant_favorite_model.dart';
 
 class DatabaseHelper {
   //Singleton
@@ -35,7 +36,11 @@ class DatabaseHelper {
 
   Future<void> insertFavorite(RestaurantFavorite restaurantFavorite) async {
     final dbClient = await database;
-    dbClient!.insert(_tableFavoriteName, restaurantFavorite.toJson());
+    dbClient!.insert(
+      _tableFavoriteName,
+      restaurantFavorite.toJson(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   Future<List<RestaurantFavorite>> getFavoriteRestaurant() async {

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:restaurant_app/shared/global_navigation.dart';
 import 'package:rxdart/rxdart.dart';
 
-// global Stream, dont forget to dispose.
+import 'package:restaurant_app/shared/global_navigation.dart';
+
+// Global Stream, don't forget to dispose.
 final selectNotificationSubject = BehaviorSubject<String>();
 
 class NotificationHelper {
@@ -20,17 +21,17 @@ class NotificationHelper {
   static const String _channelDesc = "Restaurant recommendation";
 
   Future<void> initNotificationsPlatform() async {
-    // initalize android
+    // Initialize android
     var initializationSettingsAndroid =
         const AndroidInitializationSettings('dinner_dining');
-    //initialize ios
+    //Initialize ios
     var initializationSettingsIos = IOSInitializationSettings(
       requestAlertPermission: false,
       requestBadgePermission: false,
       requestSoundPermission: false,
       onDidReceiveLocalNotification: _onDidReceiveLocalNotifications,
     );
-    // initalizeSetting
+    // Initialize setting
     var initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIos,
@@ -79,7 +80,7 @@ class NotificationHelper {
 
     final details = await _localNotifications.getNotificationAppLaunchDetails();
 
-    // if the app was launched via notification then add stream
+    // if the app was launched via notification then add stream of payload
     if (details != null && details.didNotificationLaunchApp) {
       selectNotificationSubject.add(details.payload ?? 'Empty Payload');
     }

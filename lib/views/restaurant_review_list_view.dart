@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app/shared/theme.dart';
 
-import '../provider/restaurant_provider.dart';
+import 'package:restaurant_app/provider/restaurant_provider.dart';
+import 'package:restaurant_app/shared/theme.dart';
 
 class RestaurantReviewListView extends StatelessWidget {
   const RestaurantReviewListView({super.key});

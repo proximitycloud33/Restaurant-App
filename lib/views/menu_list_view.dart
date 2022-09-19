@@ -5,7 +5,7 @@ import 'package:restaurant_app/shared/theme.dart';
 
 class MenuListView extends StatelessWidget {
   final String menuType;
-  const MenuListView({Key? key, required this.menuType}) : super(key: key);
+  const MenuListView({super.key, required this.menuType});
 
   @override
   Widget build(BuildContext context) {

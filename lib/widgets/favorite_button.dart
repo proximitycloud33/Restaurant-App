@@ -6,7 +6,7 @@ import 'package:restaurant_app/model/restaurant_favorite_model.dart';
 import 'package:restaurant_app/provider/database_provider.dart';
 import 'package:restaurant_app/shared/theme.dart';
 
-class FavoriteButton extends StatefulWidget {
+class FavoriteButton extends StatelessWidget {
   const FavoriteButton({
     super.key,
     required this.id,
@@ -21,31 +21,25 @@ class FavoriteButton extends StatefulWidget {
   final String picture;
 
   @override
-  State<FavoriteButton> createState() => _FavoriteButtonState();
-}
-
-class _FavoriteButtonState extends State<FavoriteButton> {
-  @override
   Widget build(BuildContext context) {
     return Consumer<DatabaseProvider>(
       builder: (context, value, child) {
         return FutureBuilder(
-          future: value.isFavorited(widget.id),
+          future: value.isFavorite(id),
           builder: (context, AsyncSnapshot<bool> snapshot) {
-            bool isFavorited = snapshot.data ?? false;
+            bool isFavorite = snapshot.data ?? false;
             return Positioned(
               top: 26,
               right: 16,
               child: Builder(
                 builder: (context) {
-                  if (isFavorited) {
+                  if (isFavorite) {
                     return IconButton(
                       splashColor: Colors.transparent,
                       icon: const Icon(Icons.favorite),
                       color: MyTheme.colorsScheme(context).primary,
                       onPressed: () {
-                        value.removeFavorite(widget.id);
-                        setState(() {});
+                        value.removeFavorite(id);
                       },
                     );
                   } else {
@@ -58,17 +52,16 @@ class _FavoriteButtonState extends State<FavoriteButton> {
                       onPressed: () async {
                         var imageBytes =
                             await ImageConverterHelper.convertImageToBytes(
-                          widget.picture,
+                          picture,
                         );
                         value.addFavorite(
                           RestaurantFavorite(
-                            id: widget.id,
-                            name: widget.name,
-                            city: widget.city,
+                            id: id,
+                            name: name,
+                            city: city,
                             picture: imageBytes,
                           ),
                         );
-                        setState(() {});
                       },
                     );
                   }
