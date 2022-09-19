@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/services/notification_service.dart';
+import 'package:restaurant_app/helper/notification_helper.dart';
 import 'package:restaurant_app/views/restaurant_grid_view.dart';
 
 class RestaurantHomeScreen extends StatefulWidget {
@@ -11,7 +11,7 @@ class RestaurantHomeScreen extends StatefulWidget {
 }
 
 class _RestaurantHomeScreenState extends State<RestaurantHomeScreen> {
-  final _notificationService = NotificationService();
+  final _notificationService = NotificationHelper();
   @override
   void initState() {
     super.initState();

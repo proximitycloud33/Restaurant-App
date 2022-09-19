@@ -6,11 +6,11 @@ import 'package:rxdart/rxdart.dart';
 // global Stream, dont forget to dispose.
 final selectNotificationSubject = BehaviorSubject<String>();
 
-class NotificationService {
+class NotificationHelper {
   //Singleton
-  static final notificationService = NotificationService._internal();
-  NotificationService._internal();
-  factory NotificationService() => notificationService;
+  static final notificationService = NotificationHelper._internal();
+  NotificationHelper._internal();
+  factory NotificationHelper() => notificationService;
 
   final _localNotifications = FlutterLocalNotificationsPlugin();
 

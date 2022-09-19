@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/model/restaurant_detail_model.dart';
 import 'package:restaurant_app/provider/restaurant_provider.dart';
+import 'package:restaurant_app/shared/result_state.dart';
+import 'package:restaurant_app/widgets/favorite_button.dart';
 
 import '../shared/theme.dart';
 
@@ -11,12 +13,20 @@ class RestaurantDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<RestaurantProvider>(
       builder: (context, value, child) {
-        final RestaurantDetail? restaurantDetail = value.restaurantDetail;
-        final String restaurantPicture =
-            'https://restaurant-api.dicoding.dev/images/medium/${restaurantDetail?.restaurant.pictureId}';
+        final Restaurant? restaurantDetail = value.restaurantDetail?.restaurant;
+        final String id = restaurantDetail?.id ?? '';
+        final String name = restaurantDetail?.name ?? '';
+        List<Category> categories = restaurantDetail?.categories ?? [];
+        final String city = restaurantDetail?.city ?? '';
+        final String description = restaurantDetail?.description ?? '';
+        final String address = restaurantDetail?.address ?? '';
+        final String rating = restaurantDetail?.rating.toString() ?? '';
+        final String pictureId = restaurantDetail?.pictureId ?? '';
+        final String picture =
+            'https://restaurant-api.dicoding.dev/images/medium/$pictureId';
         if (value.state == ResultState.hasData) {
           return Hero(
-            tag: restaurantDetail!.restaurant.id,
+            tag: id,
             child: Material(
               child: SingleChildScrollView(
                 child: Column(
@@ -25,7 +35,7 @@ class RestaurantDetailView extends StatelessWidget {
                     Stack(
                       children: [
                         Image.network(
-                          restaurantPicture,
+                          picture,
                           height: 250,
                           width: double.maxFinite,
                           fit: BoxFit.fitWidth,
@@ -44,22 +54,18 @@ class RestaurantDetailView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
-                          top: 26,
-                          right: 16,
-                          child: IconButton(
-                            splashColor: Colors.transparent,
-                            color: MyTheme.colorsScheme(context).primary,
-                            onPressed: () {},
-                            icon: const Icon(Icons.favorite_border_outlined),
-                          ),
+                        FavoriteButton(
+                          id: id,
+                          name: name,
+                          city: city,
+                          picture: picture,
                         ),
                       ],
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8, top: 20),
                       child: Text(
-                        restaurantDetail.restaurant.name,
+                        name,
                         style: MyTheme.headlineLarge(
                           MyTheme.colorsScheme(context).onBackground,
                           context,
@@ -68,8 +74,7 @@ class RestaurantDetailView extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        ...restaurantDetail.restaurant.categories
-                            .map((category) {
+                        ...categories.map((category) {
                           return Padding(
                             padding: const EdgeInsets.only(left: 8),
                             child: Text(
@@ -92,7 +97,7 @@ class RestaurantDetailView extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            '${restaurantDetail.restaurant.address}, ${restaurantDetail.restaurant.city}',
+                            '$address, $city',
                             style: MyTheme.bodyMedium(
                               MyTheme.colorsScheme(context).onSurface,
                               context,
@@ -111,7 +116,7 @@ class RestaurantDetailView extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            restaurantDetail.restaurant.rating.toString(),
+                            rating,
                             style: MyTheme.bodyMedium(
                               MyTheme.colorsScheme(context).onSurface,
                               context,
@@ -124,7 +129,7 @@ class RestaurantDetailView extends StatelessWidget {
                       padding:
                           const EdgeInsets.only(left: 8, top: 10, right: 8),
                       child: Text(
-                        restaurantDetail.restaurant.description,
+                        description,
                         style: MyTheme.bodyMedium(
                           MyTheme.colorsScheme(context).onBackground,
                           context,

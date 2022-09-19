@@ -9,7 +9,7 @@ class RestaurantFavoriteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Favorite'),
+        title: const Text('Favorites'),
       ),
       body: const RestaurantFavoriteView(),
     );

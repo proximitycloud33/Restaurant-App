@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/helper/database_helper.dart';
 import 'package:restaurant_app/helper/preferences_helper.dart';
-import 'package:restaurant_app/model/restaurant_detail_model.dart';
+import 'package:restaurant_app/provider/database_provider.dart';
 import 'package:restaurant_app/provider/preferences_provider.dart';
 import 'package:restaurant_app/provider/restaurant_provider.dart';
 import 'package:restaurant_app/provider/scheduling_provider.dart';
@@ -29,6 +30,10 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               RestaurantProvider.fetchRestaurantListData(ApiService()),
         ),
+        ChangeNotifierProvider(
+          create: (context) =>
+              DatabaseProvider(databaseHelper: DatabaseHelper()),
+        )
       ],
       child: Consumer<PreferencesProvider>(
         builder: (context, value, child) {

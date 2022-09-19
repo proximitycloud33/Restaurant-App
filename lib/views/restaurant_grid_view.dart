@@ -6,6 +6,8 @@ import 'package:restaurant_app/model/restaurant_search_model.dart'
 import 'package:restaurant_app/provider/restaurant_provider.dart';
 import 'package:restaurant_app/shared/theme.dart';
 
+import '../shared/result_state.dart';
+
 class RestaurantGridView extends StatelessWidget {
   final bool searchMode;
   const RestaurantGridView({Key? key, required this.searchMode})

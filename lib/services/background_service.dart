@@ -4,7 +4,7 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:restaurant_app/services/api_service.dart';
-import 'package:restaurant_app/services/notification_service.dart';
+import 'package:restaurant_app/helper/notification_helper.dart';
 
 final port = ReceivePort();
 
@@ -32,7 +32,7 @@ class BackgroundService {
     String restaurantId = listData.restaurants[randomIndex].id;
     var detailData = await ApiService().getRestaurantDetailData(restaurantId);
 
-    final notificationService = NotificationService();
+    final notificationService = NotificationHelper();
     await notificationService.showLocalNotification(
       id: 1,
       title: detailData.restaurant.name,
