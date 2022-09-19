@@ -3,8 +3,10 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
-import 'package:restaurant_app/services/api_service.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:restaurant_app/helper/notification_helper.dart';
+import 'package:restaurant_app/services/api_service.dart';
 
 final port = ReceivePort();
 
@@ -26,11 +28,14 @@ class BackgroundService {
   static Future<void> callback() async {
     debugPrint('Alarm Fired');
 
-    var listData = await ApiService().getRestaurantListData();
+    var listData = await ApiService().getRestaurantListData(http.Client());
     var randomIndex = Random().nextInt(listData.restaurants.length);
 
     String restaurantId = listData.restaurants[randomIndex].id;
-    var detailData = await ApiService().getRestaurantDetailData(restaurantId);
+    var detailData = await ApiService().getRestaurantDetailData(
+      http.Client(),
+      restaurantId,
+    );
 
     final notificationService = NotificationHelper();
     await notificationService.showLocalNotification(

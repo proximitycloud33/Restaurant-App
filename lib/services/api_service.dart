@@ -9,9 +9,9 @@ import '../model/restaurant_search_model.dart';
 class ApiService {
   final String _baseUrl = 'https://restaurant-api.dicoding.dev';
 
-  Future<RestaurantList> getRestaurantListData() async {
+  Future<RestaurantList> getRestaurantListData(http.Client client) async {
     final Uri parsedUri = Uri.parse('$_baseUrl/list');
-    final response = await http.get(parsedUri);
+    final response = await client.get(parsedUri);
     if (response.statusCode == 200) {
       return restaurantListFromJson(response.body);
     } else {
@@ -19,9 +19,10 @@ class ApiService {
     }
   }
 
-  Future<RestaurantDetail> getRestaurantDetailData(String id) async {
+  Future<RestaurantDetail> getRestaurantDetailData(
+      http.Client client, String id) async {
     final Uri parsedUri = Uri.parse('$_baseUrl/detail/$id');
-    final response = await http.get(parsedUri);
+    final response = await client.get(parsedUri);
     if (response.statusCode == 200) {
       return restaurantDetailFromJson(response.body);
     } else {
@@ -29,7 +30,8 @@ class ApiService {
     }
   }
 
-  Future<RestaurantSearch> getRestaurantWithSearch(String query) async {
+  Future<RestaurantSearch> getRestaurantWithSearch(
+      http.Client client, String query) async {
     final Uri parsedUri = Uri.parse('$_baseUrl/search?q=$query');
     final response = await http.get(parsedUri);
     if (response.statusCode == 200) {
@@ -39,7 +41,7 @@ class ApiService {
     }
   }
 
-  void addReview(Map<String, dynamic> review) async {
+  void addReview(http.Client client, Map<String, dynamic> review) async {
     final Uri parsedUrl = Uri.parse('$_baseUrl/review');
     final Map<String, String> headers = {
       'Content-Type': 'application/json; charset=utf-8',

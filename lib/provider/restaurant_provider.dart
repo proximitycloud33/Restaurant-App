@@ -1,11 +1,11 @@
 import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:restaurant_app/model/restaurant_detail_model.dart';
 import 'package:restaurant_app/model/restaurant_list_model.dart';
 import 'package:restaurant_app/model/restaurant_search_model.dart';
 import 'package:restaurant_app/services/api_service.dart';
 import 'package:restaurant_app/shared/result_state.dart';
-
 
 class RestaurantProvider extends ChangeNotifier {
   final ApiService _apiService;
@@ -41,7 +41,7 @@ class RestaurantProvider extends ChangeNotifier {
     try {
       _state = ResultState.loading;
       notifyListeners();
-      _restaurantList = await _apiService.getRestaurantListData();
+      _restaurantList = await _apiService.getRestaurantListData(http.Client());
       if (_restaurantList?.error == false) {
         _state = ResultState.hasData;
         notifyListeners();
@@ -62,7 +62,8 @@ class RestaurantProvider extends ChangeNotifier {
     try {
       _state = ResultState.loading;
       notifyListeners();
-      _restaurantDetail = await _apiService.getRestaurantDetailData(id);
+      _restaurantDetail =
+          await _apiService.getRestaurantDetailData(http.Client(), id);
       if (_restaurantDetail?.error == false) {
         _state = ResultState.hasData;
         notifyListeners();
@@ -83,7 +84,8 @@ class RestaurantProvider extends ChangeNotifier {
     try {
       _state = ResultState.loading;
       notifyListeners();
-      _restaurantSearch = await _apiService.getRestaurantWithSearch(query);
+      _restaurantSearch =
+          await _apiService.getRestaurantWithSearch(http.Client(), query);
       if (_restaurantSearch?.error == false) {
         _state = ResultState.hasData;
         notifyListeners();

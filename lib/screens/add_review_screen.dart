@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:restaurant_app/model/restaurant_customer_review_model.dart';
 import 'package:restaurant_app/services/api_service.dart';
 
@@ -56,7 +57,10 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                     name: _nameController.text.trimLeft(),
                     review: _reviewController.text.trimLeft(),
                   );
-                  ApiService().addReview(customerReview.toJson());
+                  ApiService().addReview(
+                    http.Client(),
+                    customerReview.toJson(),
+                  );
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: Theme.of(context).colorScheme.primary,
