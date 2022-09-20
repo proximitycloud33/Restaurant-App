@@ -17,7 +17,7 @@ class DatabaseHelper {
            id TEXT PRIMARY KEY,
            name TEXT,
            city TEXT,
-           picture BLOB, )
+           picture BLOB )
         ''';
     var db = openDatabase(
       '$databasePath/restaurantapp.db',

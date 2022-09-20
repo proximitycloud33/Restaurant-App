@@ -25,26 +25,29 @@ class RestaurantSettingView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Dark Mode',
-                              style: MyTheme.titleMedium(
-                                MyTheme.colorsScheme(context).onSurface,
-                                context,
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Dark Mode',
+                                style: MyTheme.titleMedium(
+                                  MyTheme.colorsScheme(context).onSurface,
+                                  context,
+                                ),
                               ),
-                            ),
-                            Text(
-                              'Make your eyes comfortable at night',
-                              style: MyTheme.bodyMedium(
-                                MyTheme.colorsScheme(context).onSurfaceVariant,
-                                context,
+                              Text(
+                                'Make your eyes comfortable at night',
+                                style: MyTheme.bodyMedium(
+                                  MyTheme.colorsScheme(context)
+                                      .onSurfaceVariant,
+                                  context,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                       Switch.adaptive(
@@ -68,28 +71,29 @@ class RestaurantSettingView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Restaurant Recommendation',
-                                  style: MyTheme.titleMedium(
-                                    MyTheme.colorsScheme(context).onSurface,
-                                    context,
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Restaurant Recommendation',
+                                    style: MyTheme.titleMedium(
+                                      MyTheme.colorsScheme(context).onSurface,
+                                      context,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  'Show notification for recommended restaurant ',
-                                  overflow: TextOverflow.ellipsis,
-                                  style: MyTheme.bodyMedium(
-                                    MyTheme.colorsScheme(context)
-                                        .onSurfaceVariant,
-                                    context,
+                                  Text(
+                                    'Show notification for recommended restaurant',
+                                    style: MyTheme.bodyMedium(
+                                      MyTheme.colorsScheme(context)
+                                          .onSurfaceVariant,
+                                      context,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           Switch.adaptive(
