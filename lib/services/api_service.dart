@@ -33,7 +33,7 @@ class ApiService {
   Future<RestaurantSearch> getRestaurantWithSearch(
       http.Client client, String query) async {
     final Uri parsedUri = Uri.parse('$_baseUrl/search?q=$query');
-    final response = await http.get(parsedUri);
+    final response = await client.get(parsedUri);
     if (response.statusCode == 200) {
       return restaurantSearchFromJson(response.body);
     } else {
@@ -46,8 +46,8 @@ class ApiService {
     final Map<String, String> headers = {
       'Content-Type': 'application/json; charset=utf-8',
     };
-    final response =
-        await http.post(parsedUrl, headers: headers, body: jsonEncode(review));
+    final response = await client.post(parsedUrl,
+        headers: headers, body: jsonEncode(review));
     if (response.statusCode != 201) {
       throw Exception('Failed to add reviews');
     }

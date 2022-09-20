@@ -244,3 +244,18 @@ final mockRestaurantSearchData = {
   ]
 };
 String restaurantSearchDataJsonString = json.encode(mockRestaurantSearchData);
+
+final mockRestaurantPostReviewData = {
+  "error": false,
+  "message": "success",
+  "customerReviews": [
+    {
+      "name": "Gilang",
+      "review": "Harganya murah sekali!",
+      "date": "14 Agustus 2018"
+    },
+    {"name": "Hello", "review": "Test review", "date": "20 September 2022"}
+  ]
+};
+String restaurantPostReviewDataJsonString =
+    json.encode(mockRestaurantPostReviewData);
